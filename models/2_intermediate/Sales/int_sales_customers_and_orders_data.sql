@@ -1,0 +1,27 @@
+SELECT  ot.ORDER_ID,
+    ot.CUSTOMER_ID,
+    ot.ORDER_STATUS,
+    ot.ORDER_DATE,
+    ot.REQUIRED_DATE,
+    ot.SHIPPED_DATE,
+    ot.ESTIMATED_DELIVERY_DELAY,
+    COALESCE(ot.SHIPPING_DELAY,0) AS SHIPPING_DELAY,
+    ot.STORE_ID ,
+    ot.STAFF_ID,
+
+    oi.UNIQUE_ORDER_ITEM_ID,
+    oi.PRODUCT_ID,
+    COALESCE(oi.PRODUCT_QUANTITY,0) AS ORDER_ITEM_QUANTITY,
+    COALESCE(oi.DICSOUNTED_PRICE,0) AS ORDER_ITEM_AMOUNT,
+
+    c.CUSTOMER_NAME,
+    c.CUSTOMER_STREET,
+    c.CUSTOMER_CITY,
+    c.CUSTOMER_STATE,
+    c.CUSTOMER_ZIP_CODE
+
+FROM {{ref("stg_sales_orders")}} as ot
+INNER JOIN {{ref("stg_sales_order_items")}} as oi
+    ON ot.ORDER_ID = oi.ORDER_ID 
+LEFT JOIN {{ref("stg_sales_customers")}} AS c
+    ON ot.CUSTOMER_ID = c.CUSTOMER_ID

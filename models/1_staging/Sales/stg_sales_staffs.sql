@@ -1,0 +1,5 @@
+SELECT STAFF_ID,
+    UPPER(CONCAT(FIRST_NAME,' ', LAST_NAME)) AS STAFF_NAME,
+    STORE_ID,
+    MANAGER_ID AS STAFF_MANAGER_ID 
+FROM {{source("localbike_dataset",'staffs')}}

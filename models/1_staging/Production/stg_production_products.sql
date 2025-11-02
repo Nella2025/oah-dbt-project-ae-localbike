@@ -1,0 +1,8 @@
+SELECT PRODUCT_ID,
+    UPPER(PRODUCT_NAME) AS PRODUCT_NAME,
+    BRAND_ID,
+    CATEGORY_ID,
+    MODEL_YEAR,
+    LIST_PRICE AS PRODUCT_UNIT_PRICE
+
+FROM {{source("localbike_dataset",'products')}}
