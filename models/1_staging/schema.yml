@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_sales_orders
+    description: "This model contains information about orders by each customer"
+    columns:
+      - name: order_id
+        description: "Primary key, unique identifier for each oder"
+        tests:
+            - unique
+            - not_null
+      - name: order_id
+        description: "Foreign key linking the feedback to the corresponding order."
+        tests:
+          - relationships:
+              name: order_id_foreign_key_in_stg_sales_database__feedback
+              to: ref('stg_sales_database__order')
+              field: order_id
