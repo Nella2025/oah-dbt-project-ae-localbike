@@ -31,7 +31,7 @@ SELECT ORDER_ID,
     STORE_ZIP_CODE
 
 
-FROM {{ ref('mrt_daily_sales_production_data') }}
+FROM {{ ref('int_sales_production_data') }}
 
 GROUP BY ORDER_ID,
     CUSTOMER_ID,

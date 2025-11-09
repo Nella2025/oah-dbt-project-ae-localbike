@@ -19,7 +19,7 @@ wITH metrics_by_product AS
         COUNT(UNIQUE_ORDER_ITEM_ID) AS TOTAL_ORDER_BY_PRODUCT_ID,
         ROUND(AVG(SHIPPING_DELAY),0) as AVERAGE_SHIPPING_DELAY
         
-    FROM {{ ref('mrt_daily_sales_production_data') }} 
+    FROM {{ ref('int_sales_production_data') }}
     GROUP BY  PRODUCT_ID,
         STORE_ID ,
         PRODUCT_NAME,
