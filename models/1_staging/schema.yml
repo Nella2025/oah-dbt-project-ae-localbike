@@ -2,17 +2,80 @@ version: 2
 
 models:
   - name: stg_sales_orders
-    description: "This model contains information about orders by each customer"
+    description:  "This model contains information only focus to Orders including its status, shipped_date, estimated_delay and shipped_delay"
     columns:
       - name: order_id
-        description: "Primary key, unique identifier for each oder"
+        description: "Primary key, unique identifier for each oder, column computed by concat order_id and item_id"
+        tests:
+            - unique
+            - not_null
+      - name: estimated_delivery_delay
+        description: "number of days between order date and required date"
+      - name: shipping_delay
+        description: "number of days between order date and shipped_date"
+
+  - name: stg_sales_database__order_item
+    description: "This model contains information about each item included in an order, including its price, quantity, and shipping cost."
+    columns:
+      - name: order_item_id
+        description: "Primary key, unique identifier for each order item."
         tests:
             - unique
             - not_null
       - name: order_id
-        description: "Foreign key linking the feedback to the corresponding order."
+        description: "Foreign key linking the order item to the corresponding order."
+  - name: stg_sales_customers
+    description: "This model contains information about customers related to each order"
+    columns:
+      - name: customer_id
+        description: "primary key, unique identifier for each customer"
         tests:
-          - relationships:
-              name: order_id_foreign_key_in_stg_sales_database__feedback
-              to: ref('stg_sales_database__order')
-              field: order_id
+          - unique
+          - not_null
+  - name: stg_sales_staffs
+    description: "This model contains information about customers related to each staffs, its store and its manager"
+    columns:
+      - name: staff_id
+        description: "primary key, unique identifier for each staff"
+        tests:
+          - unique
+          - not_null
+  - name: stg_sales_stores
+    description: "This model contains information about each store related to order"
+    columns:
+      - name: store_id
+        description: "primary key, unique identifier for each store"
+        tests:
+          - unique
+          - not_null
+  - name: stg_production_brands
+    description: "This model contains information about each brand related to order_item"
+    columns:
+      - name: brand_id
+        description: "primary key, unique identifier for each brand_id"
+        tests:
+          - unique
+          - not_null
+  - name: stg_production_categories
+    description: "This model contains information about each category related to order_item"
+    columns:
+      - name: category_id
+        description: "primary key, unique identifier for each category"
+        tests:
+          - unique
+          - not_null      
+  - name: stg_production_products
+    description: "This model contains information about each product related to order_item"
+    columns:
+      - name: product_id
+        description: "primary key, unique identifier for each product"
+        tests:
+          - unique
+          - not_null                                                              
+  - name: stg_production_stocks
+    description: "This model contains information about available quantity related to each product"
+    columns:
+      - name: quantity
+        description: "Available quantity related to each product"
+         
+        
